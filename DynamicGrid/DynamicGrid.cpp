@@ -55,17 +55,24 @@ inline void DynamicGrid<T,N>::padUntil(const uint32_t index) {
 
 template<typename T, size_t N>
 void DynamicGrid<T,N>::put(const int32_t(&coordinate)[N], T val) {
-	uint32_t index = map(coordinate);
+	const uint32_t index = map(coordinate);
 	padUntil(index);
 	grid[index] = val;
 }
 
 template<typename T, size_t N>
 T DynamicGrid<T,N>::get(const int32_t(&coordinate)[N]) {
-	uint32_t index = map(coordinate);
+	const uint32_t index = map(coordinate);
 	return grid.size() < index ? (T)0 : grid[index];
 }
+
 template<typename T, size_t N>
 void DynamicGrid<T, N>::reserve(const int32_t(&coordinate)[N]) {
 	padUntil(map(coordinate));
+}
+
+template<typename T, size_t N>
+T& DynamicGrid <T, N>::operator()(const int32_t(&coordinate)[N]) {
+	const uint32_t index = map(coordinate);
+	return grid[index];
 }

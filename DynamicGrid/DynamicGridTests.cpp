@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 	grid.put({ 1, 1 }, 4);
 	grid.put({ 10, 10 }, 5);
 	grid.put({ -100, -200 }, 6);
-	cout << grid.get({ 0, 0 }) << endl;
+	cout << grid({ 0, 0 }) << endl;
 	cout << grid.get({ 0, 1 }) << endl;
 	cout << grid.get({ 1, 0 }) << endl;
 	cout << grid.get({ 1, 1 }) << endl;
@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
 	cout << grid.get({ -100, -200 }) << endl;
 
 	DynamicGrid<char*, 3> grid2;
+	grid2.reserve({ 10,10,10 });
 	grid2.put({ 1,-3, 4 }, "Text in 3 dimensions!");
 	cout << grid2.get({ 1, -3, 4 }) << endl;
 

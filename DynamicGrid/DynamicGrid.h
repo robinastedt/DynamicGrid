@@ -35,4 +35,9 @@ public:
 	If using negative values the positive edge is not guaranteed to be included
 	**/
 	void reserve(const int32_t(&coordinate)[N]);
+	/**
+	Returns a reference to the element at the coordinate
+	Observe that the coordinate might not be initialized!
+	**/
+	T& operator ()(const int32_t(&coordinate)[N]);
 };
