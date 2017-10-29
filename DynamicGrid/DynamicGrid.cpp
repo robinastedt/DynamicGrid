@@ -8,7 +8,10 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 #include "DynamicGrid.h"
 #include "DynamicGridTypes.h"
 
-// Static helper functions
+
+
+
+// Implemenations
 
 static inline uint32_t negMap(const int32_t a) {
 	//Alternate negative and positive indices
@@ -28,8 +31,8 @@ static inline uint32_t diagMap(const uint32_t a1, const uint32_t a2) {
 	return index;
 }
 
-template <size_t N>
-static inline uint32_t map(const int32_t(&coordinate)[N]) {
+template<typename T, size_t N>
+inline uint32_t DynamicGrid<T, N>::map(const int32_t(&coordinate)[N]) {
 	uint32_t curr_index = negMap(coordinate[0]);
 	for (int i = 1; i < N; i++) {
 		const uint32_t next_index = negMap(coordinate[1]);
@@ -37,8 +40,6 @@ static inline uint32_t map(const int32_t(&coordinate)[N]) {
 	}
 	return curr_index;
 }
-
-// Implemenations
 
 template<typename T, size_t N>
 DynamicGrid<T,N>::DynamicGrid() : grid(DYNAMICGRID_INIT_SIZE, 0) { }
@@ -76,3 +77,9 @@ T& DynamicGrid <T, N>::operator()(const int32_t(&coordinate)[N]) {
 	const uint32_t index = map(coordinate);
 	return grid[index];
 }
+
+/*
+template<typename T, size_t N>
+DynamicGrid<T, N>::PartiallyIndexedDynamicGrid_t DynamicGrid<T, N>::chain(int32_t val) {
+	return 0;
+}*/
