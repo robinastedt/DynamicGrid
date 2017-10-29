@@ -33,9 +33,7 @@ static uint32_t map(const int32_t(&coordinates)[N]) {
 	uint32_t curr_index = negMap(coordinates[0]);
 	for (int i = 1; i < N; i++) {
 		const uint32_t next_index = negMap(coordinates[1]);
-		const uint32_t sum = curr_index + next_index;
-		const uint32_t offset = sum * (sum + 1) / 2;
-		curr_index = offset + curr_index;
+		curr_index = diagMap(curr_index, next_index);
 	}
 	return curr_index;
 }
