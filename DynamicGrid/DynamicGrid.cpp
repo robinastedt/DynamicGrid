@@ -41,7 +41,7 @@ static uint32_t map(const int32_t(&coordinates)[N]) {
 // Implemenations
 
 template<typename T, size_t N>
-DynamicGrid<T,N>::DynamicGrid() : grid(10, 0) { }
+DynamicGrid<T,N>::DynamicGrid() : grid(INF2DGRID_INIT_SIZE, 0) { }
 
 template<typename T, size_t N>
 DynamicGrid<T,N>::~DynamicGrid() { }
@@ -66,19 +66,3 @@ T DynamicGrid<T,N>::get(const int32_t(&coordinates)[N]) {
 	padUntil(index);
 	return grid[index];
 }
-
-/*
-template<class T>
-void Inf2dGrid<T>::put(const int32_t x, const int32_t y, const T val) {
-	uint32_t index = map(x, y);
-	padUntil(index);
-	grid[index] = val;
-}
-
-template<class T>
-T Inf2dGrid<T>::get(const int x, const int y) {
-	uint32_t index = map(x, y);
-	padUntil(index);
-	return grid[index];
-}
-*/
