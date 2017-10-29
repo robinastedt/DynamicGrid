@@ -7,7 +7,7 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 
 #include <vector>
 
-#define INF2DGRID_INIT_SIZE 10
+#define DYNAMICGRID_INIT_SIZE 10
 
 template<typename T, size_t N>
 class DynamicGrid

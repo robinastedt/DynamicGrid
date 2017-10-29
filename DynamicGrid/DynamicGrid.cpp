@@ -41,7 +41,7 @@ static inline uint32_t map(const int32_t(&coordinates)[N]) {
 // Implemenations
 
 template<typename T, size_t N>
-DynamicGrid<T,N>::DynamicGrid() : grid(INF2DGRID_INIT_SIZE, 0) { }
+DynamicGrid<T,N>::DynamicGrid() : grid(DYNAMICGRID_INIT_SIZE, 0) { }
 
 template<typename T, size_t N>
 DynamicGrid<T,N>::~DynamicGrid() { }
