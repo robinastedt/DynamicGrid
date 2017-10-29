@@ -29,10 +29,10 @@ static inline uint32_t diagMap(const uint32_t a1, const uint32_t a2) {
 }
 
 template <size_t N>
-static inline uint32_t map(const int32_t(&coordinates)[N]) {
-	uint32_t curr_index = negMap(coordinates[0]);
+static inline uint32_t map(const int32_t(&coordinate)[N]) {
+	uint32_t curr_index = negMap(coordinate[0]);
 	for (int i = 1; i < N; i++) {
-		const uint32_t next_index = negMap(coordinates[1]);
+		const uint32_t next_index = negMap(coordinate[1]);
 		curr_index = diagMap(curr_index, next_index);
 	}
 	return curr_index;
@@ -54,15 +54,18 @@ inline void DynamicGrid<T,N>::padUntil(const uint32_t index) {
 }
 
 template<typename T, size_t N>
-void DynamicGrid<T,N>::put(const int32_t(&coordinates)[N], T val) {
-	uint32_t index = map(coordinates);
+void DynamicGrid<T,N>::put(const int32_t(&coordinate)[N], T val) {
+	uint32_t index = map(coordinate);
 	padUntil(index);
 	grid[index] = val;
 }
 
 template<typename T, size_t N>
-T DynamicGrid<T,N>::get(const int32_t(&coordinates)[N]) {
-	uint32_t index = map(coordinates);
-	padUntil(index);
-	return grid[index];
+T DynamicGrid<T,N>::get(const int32_t(&coordinate)[N]) {
+	uint32_t index = map(coordinate);
+	return grid.size() < index ? (T)0 : grid[index];
+}
+template<typename T, size_t N>
+void DynamicGrid<T, N>::reserve(const int32_t(&coordinate)[N]) {
+	padUntil(map(coordinate));
 }

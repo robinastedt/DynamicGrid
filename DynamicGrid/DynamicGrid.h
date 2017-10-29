@@ -19,6 +19,20 @@ private:
 public:
 	DynamicGrid();
 	~DynamicGrid();
-	void put(const int32_t (&coordinates)[N], T val);
-	T get(const int32_t(&coordinates)[N]);
+	/**
+	Writes the value of val to the coordinate
+	Automatically allocates memory to encompass at least the bounding box determined by the coordinate
+	**/
+	void put(const int32_t (&coordinate)[N], T val);
+	/**
+	Returns the value located at the coordinates
+	If no value has been put there (T)0 is returned.
+	**/
+	T get(const int32_t(&coordinate)[N]);
+	/**
+	Reserves a bounding box stretching at least to the coordinates specified
+	If using positive values the negative values are included
+	If using negative values the positive edge is not guaranteed to be included
+	**/
+	void reserve(const int32_t(&coordinate)[N]);
 };
