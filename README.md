@@ -3,7 +3,7 @@ Dynamic storage in n dimensions supporting negative coordinates
 
 ## Example usage
 	DynamicGrid<int, 2> grid;
-	grid.reserve({ 100,200 }); // The () and [] syntax does not allocate memory
+	grid.reserve({ 100,200 }); // The () and [] syntax does not allocate memory automatically
 
 	grid.put({ 0, 0 }, 1);
 	grid({ 5, 10 }) = 2;
