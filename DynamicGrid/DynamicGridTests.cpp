@@ -15,7 +15,7 @@ using namespace std;
 int main(int argc, char** argv) {
 	
 	DynamicGrid<int,2> grid;
-	grid.put({ 0, 0 }, 1);
+	grid({ 0,0 }) = 1;
 	grid.put({ 0, 1 }, 2);
 	grid.put({ 1, 0 }, 3);
 	grid.put({ 1, 1 }, 4);
