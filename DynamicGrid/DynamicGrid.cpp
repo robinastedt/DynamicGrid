@@ -29,7 +29,7 @@ static inline uint32_t diagMap(const uint32_t a1, const uint32_t a2) {
 }
 
 template <size_t N>
-static uint32_t map(const int32_t(&coordinates)[N]) {
+static inline uint32_t map(const int32_t(&coordinates)[N]) {
 	uint32_t curr_index = negMap(coordinates[0]);
 	for (int i = 1; i < N; i++) {
 		const uint32_t next_index = negMap(coordinates[1]);
