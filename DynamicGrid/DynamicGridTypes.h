@@ -7,7 +7,7 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 #include "DynamicGrid.h"
 
 
-// Explicit template declarations
+// Explicit template instantiation
 // Add any types used here
 
 template class DynamicGrid<int, 2>;
