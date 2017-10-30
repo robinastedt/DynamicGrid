@@ -1,5 +1,6 @@
 # DynamicGrid
-Dynamic storage in n dimensions supporting negative coordinates
+Dynamic storage in n dimensions supporting negative coordinates.
+Supports automatic memory allocation and both access by value or reference.
 
 ## Example usage
 	#include <iostream>
