@@ -9,17 +9,21 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 #include <assert.h>
 
 #define DYNAMICGRID_INIT_SIZE 10
+#define DYNAMICGRID_FLAG_DEFAULT 0x00
+#define DYNAMICGRID_FLAG_ALLOC_ON_REFERENCE 0x01
 
 template<typename T, size_t N>
 class DynamicGrid
 {
 private:
 	std::vector<T> grid;
+	uint8_t flags;
 	inline void padUntil(const uint32_t index);
 	inline uint32_t map(const int32_t(&coordinate)[N]);
 public:
 	
 	DynamicGrid();
+	DynamicGrid(uint8_t flags);
 	~DynamicGrid();
 	/**
 	Writes the value of val to the coordinate
@@ -51,16 +55,30 @@ private:
 	Struct used for holding partial indexing state for operator[]
 	**/
 	typedef struct PartiallyIndexedDynamicGrid {
-		DynamicGrid<T, N>* dyngrid_ptr;
+		DynamicGrid<T, N>& dyngrid_ref;
 		uint32_t filled;
 		int32_t coordinates[N];
+
+		PartiallyIndexedDynamicGrid(DynamicGrid<T, N>& dyngrid_ref, int32_t first_val) : 
+			dyngrid_ref(dyngrid_ref),
+			filled(1),
+			coordinates{ first_val } { }
+
 		operator T&() {
 			assert(filled == N); //tried to reference to lower dimensions than specified
-			return dyngrid_ptr->grid[dyngrid_ptr->map(coordinates)];
+			uint32_t index = dyngrid_ref.map(coordinates);
+			if (dyngrid_ref.flags & DYNAMICGRID_FLAG_ALLOC_ON_REFERENCE) {
+				dyngrid_ref.padUntil(index);
+			}
+			return dyngrid_ref.grid[index];
 		}
 		T& operator =(T val) {
 			assert(filled == N); //Tried assign to lower dimensions than specified
-			dyngrid_ptr->grid[dyngrid_ptr->map(coordinates)] = val;
+			uint32_t index = dyngrid_ref.map(coordinates);
+			if (dyngrid_ref.flags & DYNAMICGRID_FLAG_ALLOC_ON_REFERENCE) {
+				dyngrid_ref.padUntil(index);
+			}
+			dyngrid_ref.grid[index] = val;
 			return *this;
 		}
 		struct PartiallyIndexedDynamicGrid operator[](int32_t val) {
@@ -70,6 +88,8 @@ private:
 		}
 	} PartiallyIndexedDynamicGrid_t;
 
+
+
 public:
 	/**
 	Use a series of [] calls according to the appropiate amount of dimensions
@@ -77,10 +97,6 @@ public:
 	Note: Observe that the coordinate might not be initialized!
 	**/
 	PartiallyIndexedDynamicGrid_t operator[](int32_t val) {
-		PartiallyIndexedDynamicGrid_t part;
-		part.dyngrid_ptr = this;
-		part.filled = 1;
-		part.coordinates[0] = val;
-		return part;
+		return PartiallyIndexedDynamicGrid_t(*this, val);
 	}
 };

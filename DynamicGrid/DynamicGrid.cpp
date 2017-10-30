@@ -5,6 +5,7 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 
 #pragma once
 
+#include <assert.h>
 #include "DynamicGrid.h"
 #include "DynamicGridTypes.h"
 
@@ -42,7 +43,18 @@ inline uint32_t DynamicGrid<T, N>::map(const int32_t(&coordinate)[N]) {
 }
 
 template<typename T, size_t N>
-DynamicGrid<T,N>::DynamicGrid() : grid(DYNAMICGRID_INIT_SIZE, 0) { }
+DynamicGrid<T,N>::DynamicGrid() :
+	grid(DYNAMICGRID_INIT_SIZE, 0),
+	flags(DYNAMICGRID_FLAG_DEFAULT) { 
+	assert(N > 0);
+}
+
+template<typename T, size_t N>
+DynamicGrid<T, N>::DynamicGrid(uint8_t flags) :
+	grid(DYNAMICGRID_INIT_SIZE, 0),
+	flags(flags) {
+	assert(N > 0);
+}
 
 template<typename T, size_t N>
 DynamicGrid<T,N>::~DynamicGrid() { }
@@ -75,11 +87,8 @@ void DynamicGrid<T, N>::reserve(const int32_t(&coordinate)[N]) {
 template<typename T, size_t N>
 T& DynamicGrid <T, N>::operator()(const int32_t(&coordinate)[N]) {
 	const uint32_t index = map(coordinate);
+	if (flags & DYNAMICGRID_FLAG_ALLOC_ON_REFERENCE) {
+		padUntil(index);
+	}
 	return grid[index];
 }
-
-/*
-template<typename T, size_t N>
-DynamicGrid<T, N>::PartiallyIndexedDynamicGrid_t DynamicGrid<T, N>::chain(int32_t val) {
-	return 0;
-}*/
