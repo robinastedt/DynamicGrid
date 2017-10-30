@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	DynamicGrid<int, 2> grid;
-	// The () and [] syntax does not allocate memory automatically
+	// The () and [] syntax does not allocate memory automatically by default
 	grid.reserve({ 100,200 }); 
 
 	grid.put({ 0, 0 }, 1);
@@ -31,8 +31,15 @@ int main(int argc, char** argv) {
 	// allocate space whenever a coordinate is referenced
 	// using () or [] syntax
 	DynamicGrid<char*, 3> grid3(DYNAMICGRID_FLAG_ALLOC_ON_REFERENCE);
-	grid3[10][10][10] = "Yay, dynamic allocation!";
+	grid3[10][10][10] = "Yay, automatic allocation!";
 	cout << grid3[10][10][10] << endl;
+
+	// Typically get() returns 0 if trying to access an uninitialized coordiate
+	// without allocating any new memory. By setting a flag this behavior can be changed.
+	DynamicGrid<int, 2> grid4(DYNAMICGRID_FLAG_ALLOC_ON_GET);
+	cout << "grid4 size: " << grid4.containerSize() << endl;
+	grid4.get({ 10, 10 });
+	cout << "grid4 size: " << grid4.containerSize() << endl;
 
 	system("pause");
 	return EXIT_SUCCESS;

@@ -11,6 +11,8 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 #define DYNAMICGRID_INIT_SIZE 10
 #define DYNAMICGRID_FLAG_DEFAULT 0x00
 #define DYNAMICGRID_FLAG_ALLOC_ON_REFERENCE 0x01
+#define DYNAMICGRID_FLAG_ALLOC_ON_GET 0x02
+#define DYNAMICGRID_FLAG_ALLOC_ALWAYS 0x03
 
 template<typename T, size_t N>
 class DynamicGrid
@@ -53,7 +55,10 @@ public:
 	**/
 	T& operator ()(const int32_t(&coordinate)[N]);
 	
-
+	/**
+	Returns the amount of memory taken up by the container for storing elements
+	**/
+	size_t containerSize();
 
 	// Operator overloading and implicit conversion fuckery below..
 	// TODO: Move implementation to .cpp

@@ -76,7 +76,13 @@ void DynamicGrid<T,N>::put(const int32_t(&coordinate)[N], T val) {
 template<typename T, size_t N>
 T DynamicGrid<T,N>::get(const int32_t(&coordinate)[N]) {
 	const uint32_t index = map(coordinate);
-	return grid.size() < index ? (T)0 : grid[index];
+	if (flags & DYNAMICGRID_FLAG_ALLOC_ON_GET) {
+		padUntil(index);
+		return grid[index];
+	}
+	else {
+		return grid.size() < index ? (T)0 : grid[index];
+	}
 }
 
 template<typename T, size_t N>
@@ -91,4 +97,9 @@ T& DynamicGrid <T, N>::operator()(const int32_t(&coordinate)[N]) {
 		padUntil(index);
 	}
 	return grid[index];
+}
+
+template<typename T, size_t N>
+size_t DynamicGrid <T, N>::containerSize() {
+	return grid.size() * sizeof(T);
 }
