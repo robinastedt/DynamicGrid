@@ -3,13 +3,11 @@ Author: Robin Åstedt <robin.astedt@gmail.com>
 GitHub: https://github.com/robinastedt/DynamicGrid
 */
 
-#pragma once
-
 #include <assert.h>
+#include <cstdint>
+#include <cstdlib>
 #include "DynamicGrid.h"
 #include "DynamicGridTypes.h"
-
-
 
 
 // Implemenations

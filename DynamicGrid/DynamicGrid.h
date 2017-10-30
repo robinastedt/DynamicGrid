@@ -3,10 +3,14 @@ Author: Robin Åstedt <robin.astedt@gmail.com>
 GitHub: https://github.com/robinastedt/DynamicGrid
 */
 
-#pragma once
+
+#ifndef _DYNAMIC_GRID_
+#define _DYNAMIC_GRID_
 
 #include <vector>
 #include <assert.h>
+#include <cstdint>
+#include <cstdlib>
 
 #define DYNAMICGRID_INIT_SIZE 10
 #define DYNAMICGRID_FLAG_DEFAULT 0x00
@@ -113,3 +117,5 @@ public:
 		return PartiallyIndexedDynamicGrid(*this, val);
 	}
 };
+
+#endif

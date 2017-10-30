@@ -5,6 +5,7 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 
 #include <iostream>
 #include "DynamicGrid.h"
+
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -12,7 +13,7 @@ int main(int argc, char** argv) {
 	DynamicGrid<int, 2> grid;
 	// The () and [] syntax does not allocate memory automatically by default
 	grid.reserve({ 100,200 }); 
-
+	
 	grid.put({ 0, 0 }, 1);
 	grid({ 5, 10 }) = 2;
 	grid[-100][-200] = 3;

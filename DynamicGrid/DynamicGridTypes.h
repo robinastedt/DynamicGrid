@@ -3,7 +3,8 @@ Author: Robin Åstedt <robin.astedt@gmail.com>
 GitHub: https://github.com/robinastedt/DynamicGrid
 */
 
-#pragma once
+#ifndef _DYNAMIC_GRID_TYPES_
+#define _DYNAMIC_GRID_TYPES_
 #include "DynamicGrid.h"
 
 
@@ -12,3 +13,5 @@ GitHub: https://github.com/robinastedt/DynamicGrid
 
 template class DynamicGrid<int, 2>;
 template class DynamicGrid<char*, 3>;
+
+#endif
