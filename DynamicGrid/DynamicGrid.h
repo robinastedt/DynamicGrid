@@ -26,6 +26,12 @@ public:
 	DynamicGrid(uint8_t flags);
 	~DynamicGrid();
 	/**
+	Set option flags
+	**/
+	void setFlags(uint8_t flags) {
+		this->flags = flags;
+	}
+	/**
 	Writes the value of val to the coordinate
 	Automatically allocates memory to encompass at least the bounding box determined by the coordinate
 	**/
@@ -50,15 +56,17 @@ public:
 
 
 	// Operator overloading and implicit conversion fuckery below..
+	// TODO: Move implementation to .cpp
 private:
 	/**
 	Struct used for holding partial indexing state for operator[]
 	**/
-	typedef struct PartiallyIndexedDynamicGrid {
+	class PartiallyIndexedDynamicGrid {
+	private:
 		DynamicGrid<T, N>& dyngrid_ref;
 		uint32_t filled;
 		int32_t coordinates[N];
-
+	public:
 		PartiallyIndexedDynamicGrid(DynamicGrid<T, N>& dyngrid_ref, int32_t first_val) : 
 			dyngrid_ref(dyngrid_ref),
 			filled(1),
@@ -81,12 +89,12 @@ private:
 			dyngrid_ref.grid[index] = val;
 			return *this;
 		}
-		struct PartiallyIndexedDynamicGrid operator[](int32_t val) {
+		PartiallyIndexedDynamicGrid operator[](int32_t val) {
 			assert(filled < N); // Tried to access higher dimensions than specified
 			coordinates[filled++] = val;
 			return *this;
 		}
-	} PartiallyIndexedDynamicGrid_t;
+	};
 
 
 
@@ -96,7 +104,7 @@ public:
 	Note: If the wrong amount of dimensions are assumed this will fail at runtime!
 	Note: Observe that the coordinate might not be initialized!
 	**/
-	PartiallyIndexedDynamicGrid_t operator[](int32_t val) {
-		return PartiallyIndexedDynamicGrid_t(*this, val);
+	PartiallyIndexedDynamicGrid operator[](int32_t val) {
+		return PartiallyIndexedDynamicGrid(*this, val);
 	}
 };

@@ -10,7 +10,7 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	DynamicGrid<int, 2> grid;
-	// The () and [] syntax does not allocate memory automatically
+	// The () and [] syntax does not allocate memory automatically by default
 	grid.reserve({ 100,200 }); 
 
 	grid.put({ 0, 0 }, 1);
