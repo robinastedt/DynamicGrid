@@ -1,4 +1,9 @@
 # DynamicGrid
+
+## Why?
+Small project I started to learn C++, but might be useful for someone. :)
+
+## What?
 Dynamic storage in n dimensions supporting negative coordinates.
 Supports automatic memory allocation and both access by value or reference.
 The real magic happens in the way it interally stores the elements.
