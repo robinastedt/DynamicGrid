@@ -12,7 +12,7 @@ utilizing the CPU cache as much as possible when several nearby coordinates
 are looked up sequentially by storing everything in a single std::vector
 by utilizing a nifty mapping technique from &#8484;<sup>n</sup> -> &#8469;.
 
-## Example usage
+## How? (example usage)
 ```cpp
 #include <iostream>
 #include "DynamicGrid.h"
